@@ -2,9 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 
 const UserScreen = ({navigation, route: {params}}) => {
-  const Useridx = params.Useridx;
-  const UserName = params.UserName;
-  const UserLastName = params.UserLastName;
+  const Useridx = params ? params.Useridx : null;
+  const UserName = params ? params.UserName : null;
+  const UserLastName = params ? params.UserLastName : null;
   console.log(typeof Useridx);
   console.log(typeof UserName);
   console.log(typeof UserLastName);
