@@ -12,7 +12,7 @@ const UserScreen = ({navigation, route: {params}}) => {
 
   const TitlebarColor = () =>
     navigation.setOptions({
-      title: 'Styling By Fn !!!',
+      title: 'UserScreen By Fn !!!',
       headerStyle: {
         backgroundColor: 'yellow',
       },
@@ -21,6 +21,15 @@ const UserScreen = ({navigation, route: {params}}) => {
         fontWeight: 'bold',
         color: 'red',
       },
+      // IOS 환경에서는 User창에서 'Home으로 돌아가기 버튼에도 집 모양 아이콘이 들어가 있어서 이걸 문자열로 바꾸고 싶을 때 명령어로 headerBackTitle 사용
+      headerBackTitle: 'BACK',
+      headerRight: () => (
+        <Button
+          title="Go Home"
+          color="brown"
+          onPress={() => navigation.navigate('Home')}
+        />
+      ),
     });
 
   TitlebarColor();

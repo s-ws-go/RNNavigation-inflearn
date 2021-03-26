@@ -1,9 +1,21 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Button, Image} from 'react-native';
 
 const HomeScreen = ({navigation}) => {
-  const Option = navigation.setOptions;
-  console.log(typeof Option);
+  navigation.setOptions({
+    title: 'This is Home', // 아이콘에 가려져서 적용
+    headerStyle: {
+      backgroundColor: 'yellow',
+    },
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      color: 'red',
+    },
+    headerRight: () => (
+      <Button title="info" color="brown" onPress={() => alert('Info')} />
+    ),
+  });
+
   return (
     <View style={styles.home}>
       <Text>This is home</Text>
