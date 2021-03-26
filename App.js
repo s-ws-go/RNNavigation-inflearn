@@ -35,14 +35,6 @@ const App = () => {
           }}
           options={{
             title: 'User Screen!',
-            headerStyle: {
-              backgroundColor: 'yellow',
-            },
-            headerTintColor: 'white',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              color: 'red',
-            },
           }}
         />
       </Stack.Navigator>

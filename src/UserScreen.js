@@ -10,6 +10,21 @@ const UserScreen = ({navigation, route: {params}}) => {
   console.log(typeof UserLastName);
   console.log(typeof JSON.stringify(Useridx));
 
+  const TitlebarColor = () =>
+    navigation.setOptions({
+      title: 'Styling By Fn !!!',
+      headerStyle: {
+        backgroundColor: 'yellow',
+      },
+      headerTintColor: 'white',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+        color: 'red',
+      },
+    });
+
+  TitlebarColor();
+
   return (
     <View style={styles.home}>
       <Text>This is User</Text>
