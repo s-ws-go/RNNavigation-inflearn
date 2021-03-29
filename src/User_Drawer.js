@@ -1,7 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Button, Image} from 'react-native';
+import HomeLogo from '../assets/pics/home.png';
 
 const DrawerUserScreen = ({navigation}) => {
+  const drawerIcons = () =>
+    navigation.setOptions({
+      drawerIcon: () => (
+        <Image style={{width: 50, height: 50}} source={HomeLogo}></Image>
+      ),
+    });
+  drawerIcons();
   return (
     <View style={styles.home}>
       <Text>This is User</Text>

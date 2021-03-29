@@ -19,6 +19,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from './src/HomeScreen';
 import UserScreen from './src/UserScreen';
 import Homeicon from './src/Logo';
+import HomeLogo from './assets/pics/home.png';
+
 import DrawerHomeScreen from './src/Home_Drawer';
 import DrawerUserScreen from './src/User_Drawer';
 
@@ -32,6 +34,7 @@ const CustomDrawerContent = props => {
       <DrawerItem
         label="help"
         onPress={() => Linking.openURL('http://www.google.com')}
+        icon={() => <Homeicon />}
       />
       <DrawerItem label="info" onPress={() => alert('INFO SCREEN')} />
     </DrawerContentScrollView>
@@ -64,7 +67,15 @@ const App = () => {
         }}
         //drawercontent를 렌더링 하기 위한 함수 반환할 떄 사용(네비게이션 루트 등)
         drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen name="Home" component={DrawerHomeScreen} />
+        <Drawer.Screen
+          name="Home"
+          component={DrawerHomeScreen}
+          options={{
+            drawerIcon: () => (
+              <Image style={{width: 50, height: 50}} source={HomeLogo}></Image>
+            ),
+          }}
+        />
         <Drawer.Screen name="User" component={DrawerUserScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
