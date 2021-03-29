@@ -24,22 +24,24 @@ import HomeLogo from './assets/pics/home.png';
 import DrawerHomeScreen from './src/Home_Drawer';
 import DrawerUserScreen from './src/User_Drawer';
 
+import SideDrawer from './src/My_Drawer';
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const CustomDrawerContent = props => {
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="help"
-        onPress={() => Linking.openURL('http://www.google.com')}
-        icon={() => <Homeicon />}
-      />
-      <DrawerItem label="info" onPress={() => alert('INFO SCREEN')} />
-    </DrawerContentScrollView>
-  );
-};
+// const CustomDrawerContent = props => {
+//   return (
+//     <DrawerContentScrollView {...props}>
+//       <DrawerItemList {...props} />
+//       <DrawerItem
+//         label="help"
+//         onPress={() => Linking.openURL('http://www.google.com')}
+//         icon={() => <Homeicon />}
+//       />
+//       <DrawerItem label="info" onPress={() => alert('INFO SCREEN')} />
+//     </DrawerContentScrollView>
+//   );
+// };
 
 //App 안이 아니라 밖에서 선언해줘야 한다고 하는데 그 이유는?
 
@@ -66,7 +68,7 @@ const App = () => {
           activeBackgroundColor: 'skyblue',
         }}
         //drawercontent를 렌더링 하기 위한 함수 반환할 떄 사용(네비게이션 루트 등)
-        drawerContent={props => <CustomDrawerContent {...props} />}>
+        drawerContent={props => <SideDrawer {...props} />}>
         <Drawer.Screen
           name="Home"
           component={DrawerHomeScreen}
