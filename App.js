@@ -7,7 +7,14 @@
  */
 import 'react-native-gesture-handler';
 import React from 'react';
-import {View, Text, StyleSheet, Image, Linking} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Linking,
+  TouchableOpacity,
+} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
   createDrawerNavigator,
@@ -15,7 +22,11 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DrawerActions,
+  useNavigation,
+} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import StackHomeScreen from './src/HomeScreen';
@@ -112,6 +123,21 @@ const TabBarIcon = (focused, name) => {
   );
 };
 
+const HeaderRight = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={{flexDirection: 'row', paddingRight: 15}}>
+      <TouchableOpacity
+        //openDrawer라는 액션을 navigation 이 dispatch 해서 state를 업데이트 해 주는 것.
+        onPress={() => {
+          navigation.dispatch(DrawerActions.openDrawer());
+        }}>
+        <Text>Open</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 // const CustomDrawerContent = props => {
 //   return (
 //     <DrawerContentScrollView {...props}>
@@ -142,7 +168,13 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="main" component={DrawerComponent} />
+        <Stack.Screen
+          name="main"
+          component={DrawerComponent}
+          options={{
+            headerRight: () => <HeaderRight />,
+          }}
+        />
         <Stack.Screen name="Home_Stack" component={StackHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
