@@ -39,17 +39,36 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-/* NESTING NAVIGATION 기본 구조
+/* NESTING NAVIGATION 두 번째 기본 구조
   Stack Navigator
-   - Tab Navigator
-     - Tab Screen D
-     - Tab Screen E
-     - Tab Screen F
+   - Drawer Navigator w/ Drawer Screen C, D.... => 첫 번째 스택스크린 안에서만 Drawer 작동. 다른 스택 스크린에서는 안돼.
+     - Tab Navigator
+      - Tab Screen E
+      - Tab Screen F
    - Stack Screen B
    - Stack Screen C
 */
+const DrawerComponent = () => {
+  return (
+    <Drawer.Navigator
+      initialRouteName="home"
+      //front : 뒷 화면 고정, slide : 뒷 화면 밀어냄, permanent : 계속 남아있음(화면이 엄청 커서 남겨두고 싶은 경우)
+      drawerType="front"
+      drawerPosition="right"
+      drawerStyle={{backgroundColor: 'red', width: 200}}
+      //drawer에 있는 항목들을 스타일링 하기 위한 옵션. active~ 는 선택된 content에 대한 스타일링
+      drawerContentOptions={{
+        activeTintColor: 'yellow',
+        activeBackgroundColor: 'skyblue',
+      }}
+      //drawercontent를 렌더링 하기 위한 함수 반환할 떄 사용(네비게이션 루트 등)
+      drawerContent={props => <SideDrawer {...props} />}>
+      <Drawer.Screen name="Route" component={TabComponent} />
+    </Drawer.Navigator>
+  );
+};
 
-const MainScreen = () => {
+const TabComponent = () => {
   return (
     <Tab.Navigator
       initialRouteName="home"
@@ -123,7 +142,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="main" component={MainScreen} />
+        <Stack.Screen name="main" component={DrawerComponent} />
         <Stack.Screen name="Home_Stack" component={StackHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
