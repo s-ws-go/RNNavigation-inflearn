@@ -1,10 +1,15 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button, Image} from 'react-native';
 
-const TabHomeScreen = () => {
+const TabHomeScreen = ({navigation}) => {
   return (
     <View style={styles.home}>
       <Text>This is home</Text>
+      <Button
+        title="Go to the Home Stack Screen"
+        onPress={() => {
+          navigation.navigate('Home_Stack');
+        }}></Button>
     </View>
   );
 };

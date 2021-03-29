@@ -18,8 +18,8 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeScreen from './src/HomeScreen';
-import UserScreen from './src/UserScreen';
+import StackHomeScreen from './src/HomeScreen';
+import StackUserScreen from './src/UserScreen';
 import Homeicon from './src/Logo';
 import HomeLogo from './assets/pics/home.png';
 
@@ -33,10 +33,44 @@ import TabUserScreen from './src/User_Tab';
 import TabMessageScreen from './src/Message_Tab';
 
 import Icon from 'react-native-vector-icons/dist/Ionicons';
+import {startClock} from 'react-native-reanimated';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+
+/* NESTING NAVIGATION 기본 구조
+  Stack Navigator
+   - Tab Navigator
+     - Tab Screen D
+     - Tab Screen E
+     - Tab Screen F
+   - Stack Screen B
+   - Stack Screen C
+*/
+
+const MainScreen = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="home"
+      tabBarOptions={{
+        activeBackgroundColor: 'skyblue',
+        activeTintColor: 'blue',
+        // inactiveTintColor: 'white',
+        // style: {backgroundColor: 'yellow'},
+      }}
+      screenOptions={({route}) => ({
+        // 이미지를 직접 삽입하면 뜨는데, 외부함수에서 끌고 오는 방식으로 쓰면 안 뜬다...?
+        tabBarIcon: ({focused}) => {
+          TabBarIcon(focused, route.name);
+        },
+      })}>
+      <Tab.Screen name="Home" component={TabHomeScreen} />
+      <Tab.Screen name="User" component={TabUserScreen} />
+      <Tab.Screen name="Message" component={TabMessageScreen} />
+    </Tab.Navigator>
+  );
+};
 
 const TabBarIcon = (focused, name) => {
   let iconImagePath;
@@ -88,24 +122,10 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="home"
-        tabBarOptions={{
-          activeBackgroundColor: 'skyblue',
-          activeTintColor: 'blue',
-          // inactiveTintColor: 'white',
-          // style: {backgroundColor: 'yellow'},
-        }}
-        screenOptions={({route}) => ({
-          // 이미지를 직접 삽입하면 뜨는데, 외부함수에서 끌고 오는 방식으로 쓰면 안 뜬다...?
-          tabBarIcon: ({focused}) => {
-            TabBarIcon(focused, route.name);
-          },
-        })}>
-        <Tab.Screen name="Home" component={TabHomeScreen} />
-        <Tab.Screen name="User" component={TabUserScreen} />
-        <Tab.Screen name="Message" component={TabMessageScreen} />
-      </Tab.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="main" component={MainScreen} />
+        <Stack.Screen name="Home_Stack" component={StackHomeScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
 
     // <NavigationContainer>
