@@ -43,8 +43,8 @@ import TabHomeScreen from './src/Home_Tab';
 import TabUserScreen from './src/User_Tab';
 import TabMessageScreen from './src/Message_Tab';
 
-import Icon from 'react-native-vector-icons/dist/Ionicons';
 import {startClock} from 'react-native-reanimated';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -91,9 +91,7 @@ const TabComponent = () => {
       }}
       screenOptions={({route}) => ({
         // 이미지를 직접 삽입하면 뜨는데, 외부함수에서 끌고 오는 방식으로 쓰면 안 뜬다...?
-        tabBarIcon: ({focused}) => {
-          TabBarIcon(focused, route.name);
-        },
+        tabBarIcon: ({focused}) => TabBarIcon(focused, route.name),
       })}>
       <Tab.Screen name="Home" component={TabHomeScreen} />
       <Tab.Screen name="User" component={TabUserScreen} />
@@ -103,25 +101,26 @@ const TabComponent = () => {
 };
 
 const TabBarIcon = (focused, name) => {
-  let iconImagePath;
+  // let iconImagePath;
   let iconName;
   if (name === 'Home') {
-    // iconName = 'home';
-    iconImagePath = require('./src/assets/pics/home.png');
+    iconName = 'home';
+    // iconImagePath = require('./src/assets/pics/home.png');
   } else if (name === 'User') {
-    // iconName = 'people-outline';
-    iconImagePath = require('./src/assets/pics/home.png');
+    iconName = 'people-outline';
+    // iconImagePath = require('./src/assets/pics/home.png');
   } else if (name === 'Message') {
-    // iconName = 'mail-outline';
-    iconImagePath = require('./src/assets/pics/home.png');
+    iconName = 'mail-outline';
+    // iconImagePath = require('./src/assets/pics/home.png');
   }
-  return (
-    <Image
-      source={HomeLogo}
-      style={{width: focused ? 30 : 10, height: focused ? 30 : 10}}
-    />
-  );
+  let iconSize = focused ? 30 : 20;
+  return <Ionicons name={iconName} size={iconSize} />;
 };
+
+// <Ionicons
+//       source={iconImagePath}
+//       style={{width: focused ? 30 : 20, height: focused ? 30 : 20}}
+//     />
 
 const HeaderRight = () => {
   const navigation = useNavigation();
@@ -152,10 +151,6 @@ const HeaderRight = () => {
 //   );
 // };
 
-{
-  /* <Ionicons name={iconName} size={iconSize} />; */
-}
-
 const App = () => {
   // const Homeicon = () => {
   //   return (
@@ -164,7 +159,6 @@ const App = () => {
   //       source={require('./assets/pics/home.png')}></Image>
   //   );
   // };
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
